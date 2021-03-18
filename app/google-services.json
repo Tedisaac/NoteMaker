@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "448462575885",
+    "project_id": "notemaker-b45db",
+    "storage_bucket": "notemaker-b45db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448462575885:android:ec4c07f6c0fde7481eb844",
+        "android_client_info": {
+          "package_name": "com.example.notemaker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448462575885-c7a6ng5jos7ahatqjinoakeagdmc08le.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.notemaker",
+            "certificate_hash": "d171b8e9030bdd9ee6efe7925c8de6243198d5fc"
+          }
+        },
+        {
+          "client_id": "448462575885-t3j59vif2hn21nc4oatfnipvc90ajj04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmHau02-SZMffyqG9bZ_RjsOC13sIHwqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448462575885-t3j59vif2hn21nc4oatfnipvc90ajj04.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
