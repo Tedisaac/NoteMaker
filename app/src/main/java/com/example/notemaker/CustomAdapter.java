@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
@@ -25,7 +26,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.layout_item_file,parent,false);
 
         return new MyViewHolder(view);
@@ -53,5 +54,20 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             titleTV = itemView.findViewById(R.id.textViewtitle);
             descriptionTV = itemView.findViewById(R.id.textViewdesc);
         }
+    }
+
+    public List<ModalClass> getmList()
+    {
+        return mList;
+    }
+    public void removeItem(int position)
+    {
+        mList.remove(position);
+        notifyItemRemoved(position);
+    }
+    public void restoreItem(ModalClass item,int position)
+    {
+        mList.add(position,item);
+        notifyItemInserted(position);
     }
 }

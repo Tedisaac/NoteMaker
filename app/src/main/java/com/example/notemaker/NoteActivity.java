@@ -2,10 +2,13 @@ package com.example.notemaker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +18,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,32 +32,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NoteActivity extends AppCompatActivity {
-FirebaseAuth firebaseAuth;
-FloatingActionButton floatingActionButton;
+    FloatingActionButton floatingActionButton;
 
-RecyclerView recyclerView;
-CustomAdapter customAdapter;
-List<ModalClass> mList;
+   RecyclerView recyclerView;
+   CustomAdapter customAdapter;
 
-DatabaseReference reference;
-FirebaseUser currentUser;
-String userId;
+  List<ModalClass> mList = new ArrayList<>();
+
+
+    DatabaseReference reference;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser currentUser;
+    String userId;
+
+    //layout
+    CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
 
+        coordinatorLayout = findViewById(R.id.coordinatorlayout);
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mList = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference("UserData");
-        currentUser = firebaseAuth.getCurrentUser();
+
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        reference = database.getReference("UserData");
+        currentUser = firebaseAuth.getInstance().getCurrentUser();
         userId = currentUser.getUid();
 
-        mList.clear();
+       mList.clear();
         reference.child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -60,11 +74,11 @@ String userId;
                 {
                     ModalClass modalClass = snapshot1.getValue(ModalClass.class);
                     mList.add(modalClass);
+                    Toast.makeText(NoteActivity.this, "Data Fetched Successfully", Toast.LENGTH_SHORT).show();
                 }
-
                 customAdapter = new CustomAdapter(mList,NoteActivity.this);
                 recyclerView.setAdapter(customAdapter);
-                Toast.makeText(NoteActivity.this, "Data Fetched Successfully", Toast.LENGTH_SHORT).show();
+
 
             }
 
@@ -75,7 +89,7 @@ String userId;
         });
 
 
-        floatingActionButton = findViewById(R.id.floatingActionButton);
+       floatingActionButton = findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +97,8 @@ String userId;
                 startActivity(intent);
             }
         });
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(recyclerView);
 
     }
 
@@ -96,15 +112,54 @@ String userId;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId())
+
+        if (item.getItemId() == R.id.logoutmenu)
         {
-            case R.id.logoutmenu:
-                firebaseAuth.signOut();
-                Intent intent = new Intent(NoteActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(NoteActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
+
+    ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            int position = viewHolder.getAdapterPosition();
+            ModalClass item = customAdapter.getmList().get(position);
+
+            customAdapter.removeItem(viewHolder.getAdapterPosition());
+
+            Snackbar snackbar = Snackbar.make(coordinatorLayout,"Item Deleted",Snackbar.LENGTH_LONG)
+                    .setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            customAdapter.restoreItem(item,position);
+                            recyclerView.scrollToPosition(position);
+                        }
+                    }).addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                        @Override
+                        public void onDismissed(Snackbar transientBottomBar, int event) {
+                            super.onDismissed(transientBottomBar, event);
+
+
+                            if (!(event == DISMISS_EVENT_ACTION))
+                            {
+                                Toast.makeText(NoteActivity.this, "Item Removed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+            snackbar.setActionTextColor(Color.GREEN);
+            snackbar.show();
+        }
+    };
 }

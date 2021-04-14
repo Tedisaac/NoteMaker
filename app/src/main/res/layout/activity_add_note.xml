@@ -6,28 +6,49 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AddNoteActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/teal_700"
+        android:src="@drawable/plus"
+        ></ImageView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="580dp"
+        android:orientation="vertical"
+        android:background="@color/black">
     <EditText
-        android:layout_width="390dp"
+        android:layout_width="350dp"
         android:layout_height="50dp"
-        android:hint="title"
+        android:layout_gravity="center"
+        android:hint="Title"
+        android:background="@drawable/addnotel"
         android:id="@+id/title1"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"/>
     <EditText
-        android:layout_width="390dp"
+        android:layout_width="350dp"
         android:layout_height="50dp"
         android:hint="Description"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:background="@drawable/addnotel"
+        android:textColorHint="@color/white"
         android:id="@+id/description1"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"/>
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="Add Note"
+        android:layout_gravity="center"
         android:textStyle="bold"
         android:id="@+id/addnote"
         android:layout_marginTop="300dp"
         android:background="@drawable/buttons"/>
+    </LinearLayout>
 
 </LinearLayout>

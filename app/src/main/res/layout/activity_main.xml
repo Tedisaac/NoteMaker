@@ -17,32 +17,40 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="581dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/black">
 
         <EditText
             android:id="@+id/lgemail"
-            android:layout_width="390dp"
+            android:layout_width="300dp"
             android:layout_height="50dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="60dp"
+            android:textColorHint="@color/white"
             android:background="@drawable/edittext"
             android:hint="Email"
+            android:textColor="@color/white"
             android:inputType="textEmailAddress"/>
 
         <EditText
             android:id="@+id/lgpass"
-            android:layout_width="390dp"
+            android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
+            android:textColorHint="@color/white"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
             android:layout_marginTop="30dp"
             android:background="@drawable/edittext"
             android:hint="Password"
             android:inputType="textPassword"/>
 
         <Button
-            android:layout_width="390dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
             android:layout_marginTop="70dp"
             android:background="@drawable/buttons"
             android:text="LOGIN"
@@ -61,14 +69,14 @@
                 android:layout_marginLeft="80dp"
                 android:gravity="center"
                 android:text="Don't have an account? "
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRegister"
                 android:text="Register here"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -80,10 +88,11 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/google"
-                android:layout_width="89dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="140dp"
+                android:layout_marginLeft="120dp"
                 android:background="@color/white"
+
                 android:src="@drawable/googleg_standard_color_18" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

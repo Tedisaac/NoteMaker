@@ -16,51 +16,66 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="581dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/black">
 
         <EditText
             android:id="@+id/rgname"
-            android:layout_width="390dp"
+            android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
             android:layout_marginTop="60dp"
+            android:textColorHint="@color/white"
             android:background="@drawable/edittext"
             android:hint="Names"
+
             android:inputType="text"/>
 
         <EditText
             android:id="@+id/rgemail"
-            android:layout_width="390dp"
+            android:layout_width="300dp"
             android:layout_height="50dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:background="@drawable/edittext"
             android:hint="Email"
             android:inputType="textEmailAddress"/>
         <EditText
             android:id="@+id/rgpass"
-            android:layout_width="390dp"
+            android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textColorHint="@color/white"
             android:layout_marginTop="30dp"
             android:background="@drawable/edittext"
             android:hint="Password"
             android:inputType="textPassword"/>
         <EditText
             android:id="@+id/rgpass2"
-            android:layout_width="390dp"
+            android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
             android:layout_marginTop="30dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:background="@drawable/edittext"
             android:hint="Confirm Password"
             android:inputType="textPassword"/>
 
         <Button
-            android:layout_width="390dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="70dp"
+            android:layout_gravity="center"
             android:background="@drawable/buttons"
             android:text="REGISTER"
             android:id="@+id/reg"

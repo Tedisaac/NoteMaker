@@ -3,6 +3,7 @@ package com.example.notemaker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public class AddNoteActivity extends AppCompatActivity {
     String title,description;
 
     DatabaseReference reference;
+    FirebaseAuth firebaseAuth;
     FirebaseUser currentUser;
     String userId;
 
@@ -39,7 +41,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         reference = database.getReference("UserData");
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        currentUser = firebaseAuth.getInstance().getCurrentUser();
         userId = currentUser.getUid();
 
         addNote = findViewById(R.id.addnote);
@@ -59,6 +61,8 @@ public class AddNoteActivity extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             Toast.makeText(AddNoteActivity.this, "Note Added", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(AddNoteActivity.this,NoteActivity.class));
+                            finish();
                         }else
                             {
                                 Toast.makeText(AddNoteActivity.this, "Adding Failed", Toast.LENGTH_SHORT).show();
